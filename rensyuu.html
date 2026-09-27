@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>青嶺国際大学 | 架空の大学Webサイト</title>
+  <style>
+    :root {
+      --primary-color: #0b3c5d;
+      --secondary-color: #328cc1;
+      --accent-color: #d9b310;
+      --bg-light: #f7f9fa;
+      --text-dark: #1d2731;
+      --text-muted: #666666;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      color: var(--text-dark);
+      background-color: var(--bg-light);
+      line-height: 1.6;
+    }
+
+    /* 架空サイト明示ヘッダーバー */
+    .fictional-notice-bar {
+      background-color: #ffeaa7;
+      color: #d63031;
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      border-bottom: 1px solid #fdcb6e;
+    }
+
+    /* メインヘッダー */
+    header {
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .university-logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      cursor: pointer;
+    }
+
+    .university-logo span {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ナビゲーション */
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 12px;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    nav button:hover {
+      background-color: rgba(50, 140, 193, 0.1);
+      color: var(--secondary-color);
+    }
+
+    nav button.active {
+      background-color: var(--primary-color);
+      color: #ffffff;
+    }
+
+    /* コンテンツエリア */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px 60px;
+    }
+
+    .page-section {
+      display: none;
+    }
+
+    .page-section.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ヒーローエリア */
+    .hero {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(11, 60, 93, 0.85));
+      color: #ffffff;
+      padding: 30px 24px 20px;
+    }
+
+    .hero-caption h1 {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+
+    /* ニュースセクション */
+    .section-title {
+      font-size: 1.4rem;
+      color: var(--primary-color);
+      border-left: 5px solid var(--primary-color);
+      padding-left: 12px;
+      margin-bottom: 20px;
+    }
+
+    .news-list {
+      list-style: none;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .news-item {
+      padding: 16px 20px;
+      border-bottom: 1px solid #edf2f7;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+    }
+
+    .news-date {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      min-width: 90px;
+    }
+
+    .news-tag {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 3px;
+      background-color: var(--secondary-color);
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .news-title {
+      font-size: 0.95rem;
+      color: var(--text-dark);
+    }
+
+    /* 下層ページスタイル */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .card-content h3 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    /* フッター */
+    footer {
+      background: var(--primary-color);
+      color: #ffffff;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.85rem;
+    }
+
+    footer p {
+      opacity: 0.8;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 架空サイト明示ヘッダー -->
+  <div class="fictional-notice-bar">
+    ※これは架空のWebサイトです。実在する学校・団体・地域とは一切関係ありません。
+  </div>
+
+  <!-- ナビゲーションヘッダー -->
+  <header>
+    <div class="header-inner">
+      <div class="university-logo" onclick="switchPage('home')">
+        青嶺国際大学
+        <span>Seirei International University</span>
+      </div>
+      <nav>
+        <ul>
+          <li><button id="nav-home" class="active" onclick="switchPage('home')">ホーム</button></li>
+          <li><button id="nav-about" onclick="switchPage('about')">大学紹介</button></li>
+          <li><button id="nav-admissions" onclick="switchPage('admissions')">入試情報</button></li>
+          <li><button id="nav-campus" onclick="switchPage('campus')">キャンパスライフ</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- TOPページ -->
+    <section id="page-home" class="page-section active">
+      <div class="hero">
+        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80" alt="青嶺国際大学のメインキャンパス外観">
+        <div class="hero-caption">
+          <h1>碧き稜線に、知のフロンティアを拓く。</h1>
+          <p>架空県霧ヶ森市に広がる緑豊かな学術研究拠点</p>
+        </div>
+      </div>
+
+      <h2 class="section-title">ニュース＆トピックス</h2>
+      <ul class="news-list">
+        <li class="news-item">
+          <span class="news-date">2026.09.15</span>
+          <span class="news-tag">研究</span>
+          <span class="news-title">波音湾生態系研究センターが新種の深海微生物を発見しました</span>
+        </li>
+        <li class="news-item">
+          <span class="news-date">2026.09.01</span>
+          <span class="news-tag">入試</span>
+          <span class="news-title">2027年度 総合型選抜出願ガイドラインを公開しました</span>
+        </li>
+        <li class="news-item">
+          <span class="news-date">2026.08.20</span>
+          <span class="news-tag">キャンパス</span>
+          <span class="news-title">第42回「星詠祭（学園祭）」の特設サイトを開設しました</span>
+        </li>
+        <li class="news-item">
+          <span class="news-date">2026.08.10</span>
+          <span class="news-tag">国際</span>
+          <span class="news-title">シルバニア連邦・ヴェゼル大学との学術交換協定を締結しました</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 大学紹介ページ -->
+    <section id="page-about" class="page-section">
+      <h2 class="section-title">大学紹介</h2>
+      <p style="margin-bottom: 20px;">
+        青嶺国際大学（せいれいこくさいだいがく）は、1952年に架空県霧ヶ森（きりがもり）市に設立された総合大学です。豊かな山々に囲まれた「翠嶺（すいれい）キャンパス」を拠点に、自律的な学問の探究と国際連携を進めています。
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="議論する学生たち">
+          <div class="card-content">
+            <h3>学長メッセージ</h3>
+            <p>未知への問いを恐れず、対話を通じて多角的な視点を養う教育理念「拓知共創」について紹介します。</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80" alt="歴史ある校舎">
+          <div class="card-content">
+            <h3>沿革・教育方針</h3>
+            <p>創立70余年、霧ヶ森の地で育まれてきた知の歩みと、次世代に向けた教育グランドデザインです。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 入試情報ページ -->
+    <section id="page-admissions" class="page-section">
+      <h2 class="section-title">入試情報</h2>
+      <p style="margin-bottom: 20px;">
+        受験生の学習歴や適性に応じた多様な選抜方式を用意しています。
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80" alt="試験勉強に取り組む様子">
+          <div class="card-content">
+            <h3>総合型・学校推薦型選抜</h3>
+            <p>探究学習の成果や課題解決力を多面的に評価する選抜方式です。出願資格や提出書類をご確認ください。</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1532649538683-f3a7d07492c4?auto=format&fit=crop&w=800&q=80" alt="オープンキャンパスの相談窓口">
+          <div class="card-content">
+            <h3>一般選抜・オープンキャンパス</h3>
+            <p>各学部の試験日程、過去問題の配付情報、オンライン相談会の予約スケジュールを掲載しています。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- キャンパスライフページ -->
+    <section id="page-campus" class="page-section">
+      <h2 class="section-title">キャンパスライフ</h2>
+      <p style="margin-bottom: 20px;">
+        四季折々の自然美を誇るキャンパスで、知性と感性を刺激する充実した学生生活が待っています。
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=800&q=80" alt="キャンパスの図書館">
+          <div class="card-content">
+            <h3>学術メディアセンター</h3>
+            <p>蔵書数80万冊を誇る翠嶺図書館と、最新のICT環境を備えたラーニング・コモンズを完備しています。</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="サークル活動を楽しむ学生たち">
+          <div class="card-content">
+            <h3>クラブ・サークル活動</h3>
+            <p>霧ヶ森山岳班や波音ヨット同好会など、自然豊かな立地を活かした多彩な公認団体が活動しています。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- フッター -->
+  <footer>
+    <div style="font-weight: bold;">青嶺国際大学</div>
+    <p>〒999-0000 架空県霧ヶ森市白樺台7-1-1</p>
+    <p>&copy; 2026 Seirei International University (架空のWebサイト)</p>
+  </footer>
+
+  <!-- ページ切り替えスクリプト -->
+  <script>
+    function switchPage(pageId) {
+      // 全ページセクションを非表示
+      const sections = document.querySelectorAll('.page-section');
+      sections.forEach(section => section.classList.remove('active'));
+
+      // 該当セクションを表示
+      const targetSection = document.getElementById('page-' + pageId);
+      if (targetSection) {
+        targetSection.classList.add('active');
+      }
+
+      // ナビゲーションのアクティブスタイル更新
+      const navButtons = document.querySelectorAll('nav button');
+      navButtons.forEach(btn => btn.classList.remove('active'));
+
+      const activeBtn = document.getElementById('nav-' + pageId);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+      }
+
+      // ページ最上部へスクロール
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
